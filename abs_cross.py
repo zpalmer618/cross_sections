@@ -41,6 +41,9 @@ for freq in list_freq:
 list_del_lambda = []
 for micron in list_micron:
     R = get_R(micron, res_range)
+    if R is None:
+        print(f"Warning: No resolution found for wavelength {micron} micron.")
+        continue
     del_lambda = wave_to_mu * (R / micron)
     list_del_lambda.append(del_lambda)
 
