@@ -16,6 +16,26 @@ res_range = [
 (23.884, 28.329, 1630),
 ]
 
+# This function loads the frequencies and intensities from a file
+# and returns them as two separate lists.
+# The input file should contain two columns: frequency and intensity.
+
+# This function is the refactored version of the original code that 
+# provides helpful error messages when the input file is not formatted correctly. 
+def load_freqs(filename):
+    list_freq = []
+    list_int = []
+    with open(filename, 'r') as infile:
+        for line in infile:
+            parts = line.strip().split()
+            if len(parts) == 2:
+                freq, intensity = map(float, parts)
+                list_freq.append(freq)
+                list_int.append(intensity)
+            else:
+                print(f"Warning: One or more lines in {filename} do not contain a frequency or intensity. Please check the input file")
+    return list_freq, list_int
+
 def get_R(wavelength, ranges):
     for low, high, res in ranges:
         if low <= wavelength <= high:
@@ -24,14 +44,7 @@ def get_R(wavelength, ranges):
 
 wave_to_mu = 10000.0
 
-list_freq = []
-list_int = []
-with open('freqs.inp', 'r') as infile:
-    frequencies = infile.readlines()
-    for freq in frequencies:
-        freq = freq.strip().split()
-        list_freq.append(float(freq[0]))
-        list_int.append(float(freq[1]))
+list_freq, list_int = load_freqs('freqs.inp')
 
 list_micron = []
 for freq in list_freq:
@@ -59,3 +72,15 @@ for epmax in list_epmax:
 
 for i in list_acs:
     print(f'{i:.1e}')
+
+# The following is the blocks of old code that have been
+# refactored into functions.
+
+#list_freq = []
+#list_int = []
+#with open('freqs.inp', 'r') as infile:
+#    frequencies = infile.readlines()
+#    for freq in frequencies:
+#        freq = freq.strip().split()
+#        list_freq.append(float(freq[0]))
+#        list_int.append(float(freq[1]))
