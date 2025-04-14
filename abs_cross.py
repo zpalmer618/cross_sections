@@ -41,7 +41,7 @@ def load_freqs(filename):
 
 # TO-DO: Check if the frequencies have associated resolutions. 
 # If not, print a warning message on the line where the resolution is missing.
-def get_R(wavelength, ranges):
+def get_R(wavelength: float, ranges: list[tuple[float, float, float]]) -> float | None:
     for low, high, res in ranges:
         if low <= wavelength <= high:
             return float(res)
@@ -89,3 +89,32 @@ for i in list_acs:
 #        freq = freq.strip().split()
 #        list_freq.append(float(freq[0]))
 #        list_int.append(float(freq[1]))
+
+# Three-phase plan:
+# 1. run any test, unrelated to the current code
+#def test_passes():
+#    got = abs(-1)
+#    want = 1
+#    assert got == want
+#
+#def test_fails():
+#    assert True
+## 2. run a test on this code
+#def test_get_R():
+#    got = get_R(7.855, [(7.477, 8.765, 3520)])
+#    want = 3520
+#    assert got == want
+#
+#import numpy as np
+#
+#def test_floats():
+#    got = [1/2, 2/3, 4/5]
+#    want = [0.5, 0.666666, 0.8]
+#    assert np.allclose(got, want, atol=1e-6)
+#
+#def main():
+#    ...
+#
+#if __name__ == "__main__":
+#    main()
+## 3. test the whole program
