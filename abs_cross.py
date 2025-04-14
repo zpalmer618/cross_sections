@@ -18,24 +18,29 @@ res_range = [
 
 # This function loads the frequencies and intensities from a file
 # and returns them as two separate lists.
-# The input file should contain two columns: frequency and intensity.
+# The input file should contain a frequency and an intensity separated by whitespace.
 
 # This function is the refactored version of the original code that 
-# provides helpful error messages when the input file is not formatted correctly. 
+# provides helpful error messages when the input file is not formatted correctly.
+# It also counts the line numbers to provide more context in the error message.
 def load_freqs(filename):
     list_freq = []
     list_int = []
     with open(filename, 'r') as infile:
-        for line in infile:
+        for lineno, line in enumerate(infile, start=1):
             parts = line.strip().split()
+            if len(parts) != 2:
+                print(f"Error: Input file {filename} is not formatted correctly on line {lineno}.")
+                print("Each line should contain a frequency and an intensity separated by whitespace.") 
+                exit(1)
             if len(parts) == 2:
                 freq, intensity = map(float, parts)
                 list_freq.append(freq)
                 list_int.append(intensity)
-            else:
-                print(f"Warning: One or more lines in {filename} do not contain a frequency or intensity. Please check the input file")
-    return list_freq, list_int
+        return list_freq, list_int
 
+# TO-DO: Check if the frequencies have associated resolutions. 
+# If not, print a warning message on the line where the resolution is missing.
 def get_R(wavelength, ranges):
     for low, high, res in ranges:
         if low <= wavelength <= high:
@@ -44,7 +49,7 @@ def get_R(wavelength, ranges):
 
 wave_to_mu = 10000.0
 
-list_freq, list_int = load_freqs('freqs.inp')
+list_freq, list_int = load_freqs('error_in_freqs.inp')
 
 list_micron = []
 for freq in list_freq:
