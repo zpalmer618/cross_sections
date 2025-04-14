@@ -1,0 +1,2 @@
+# cross_sections
+This script calculates absorption cross sections using anharmonic vibrational frequencies (cm<sup>-1</sup>) and infrared intensities (km/mol), providing a semi-quantitative observable that is more relevant to astronomy than to spectroscopy.
