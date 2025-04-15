@@ -1,5 +1,7 @@
 import math
+import sys
 
+# JWST resolution ranges
 res_range = [
 (1.66, 3.17, 2700),
 (4.885, 5.751, 3630),
@@ -20,9 +22,6 @@ res_range = [
 # and returns them as two separate lists.
 # The input file should contain a frequency and an intensity separated by whitespace.
 
-# This function is the refactored version of the original code that 
-# provides helpful error messages when the input file is not formatted correctly.
-# It also counts the line numbers to provide more context in the error message.
 def load_freqs(filename):
     list_freq = []
     list_int = []
@@ -53,7 +52,8 @@ def get_R(wavelength: float, ranges: list[tuple[float, float, float]]) -> float 
 
 wave_to_mu = 10000.0
 
-list_freq, list_int = load_freqs('error_in_freqs.inp')
+input_file = sys.argv[1]
+list_freq, list_int = load_freqs(input_file)
 
 list_micron = []
 for freq in list_freq:
@@ -84,15 +84,3 @@ for epmax in list_epmax:
 print('Frequency (cm\u207b\u00b9)', '=', 'Absorption Cross Section (cm\u00b2/molecule)')
 for i, j in zip(list_freq, list_acs):
     print(f'{i} = {j:.1e}')
-
-# The following is the blocks of old code that have been
-# refactored into functions.
-
-#list_freq = []
-#list_int = []
-#with open('freqs.inp', 'r') as infile:
-#    frequencies = infile.readlines()
-#    for freq in frequencies:
-#        freq = freq.strip().split()
-#        list_freq.append(float(freq[0]))
-#        list_int.append(float(freq[1]))
