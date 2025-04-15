@@ -44,7 +44,7 @@ def load_freqs(filename):
 # If not, print a warning message on the line where the resolution is missing.
 # This will likely require 'major' refactoring to thake the list_micron for loop
 # and convert it into a function that accepts frequencies as an argument.
-def get_R(wavelength: float, ranges: list[tuple[float, float, float]]) -> float | None:
+def get_R(wavelength, ranges):
     for low, high, res in ranges:
         if low <= wavelength <= high:
             return float(res)
