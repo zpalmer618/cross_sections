@@ -18,11 +18,7 @@ res_range = [
     (23.884, 28.329, 1630),
 ]
 
-# This function loads the frequencies and intensities from a file
-# and returns them as two separate lists.
-# The input file should contain a frequency and an intensity separated by whitespace.
-
-
+### Functions
 def load_freqs(filename):
     list_freq = []
     list_int = []
@@ -37,9 +33,6 @@ def load_freqs(filename):
                     "Each line should contain a frequency and an intensity separated by whitespace."
                 )
                 exit(1)
-            # The following if statement is not necessary given the above 'if not' statement.
-            # It is left here to remind me later.
-            # if len(parts) == 2:
             freq, intensity = map(float, parts)
             list_freq.append(freq)
             list_int.append(intensity)
