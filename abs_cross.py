@@ -53,7 +53,7 @@ def get_R(wavelength: float, ranges: list[tuple[float, float, float]]) -> float 
 
 wave_to_mu = 10000.0
 
-list_freq, list_int = load_freqs('freqs.inp')
+list_freq, list_int = load_freqs('error_in_freqs.inp')
 
 list_micron = []
 for freq in list_freq:
@@ -69,8 +69,7 @@ for micron in list_micron:
         del_lambda = wave_to_mu * (R / micron)
         list_del_lambda.append(del_lambda)
     else:
-        print(f"Warning: No resolution found for wavelength {micron} micron.")
-        print(f"If this is a mistake, double check the input file and try again.")
+        print(f"Warning: No resolution found for {10000 / micron} cm\u207b\u00b9. If this is a mistake, double check the input file and try again.")
 
 list_epmax = []
 for del_lambda, intensity in zip(list_del_lambda, list_int):
