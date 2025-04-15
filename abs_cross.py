@@ -20,6 +20,10 @@ res_range = [
 
 ### Functions
 def load_freqs(filename):
+    """
+    Takes the input file given as a command line argument and loads the frequencies and intensities.
+    Returns two lists: list_freq and list_int.
+    """
     list_freq = []
     list_int = []
     with open(filename, "r") as infile:
@@ -38,12 +42,24 @@ def load_freqs(filename):
             list_int.append(intensity)
         return list_freq, list_int
 
+def get_wavelength(freqs):
+    """
+    Takes a frequency and returns the wavelength in microns.
+    """
+    list_micron = []
+    for freq in freqs:
+        micron = 10000.0 / freq
+        list_micron.append(micron)
+    return list_micron
 
 # TO-DO: Check if the frequencies have associated resolutions.
 # If not, print a warning message on the line where the resolution is missing.
 # This will likely require 'major' refactoring to thake the list_micron for loop
 # and convert it into a function that accepts frequencies as an argument.
 def get_R(wavelength, ranges):
+    """
+    Takes a wavelength and a list of wavelength ranges, and returns the resolution (R) for that wavelength.
+    """
     for low, high, res in ranges:
         if low <= wavelength <= high:
             return float(res)
