@@ -65,24 +65,16 @@ def get_R(wavelength, ranges):
             return float(res)
     return None
 
-
-wave_to_mu = 10000.0
-
 input_file = sys.argv[1]
 list_freq, list_int = load_freqs(input_file)
-
-list_micron = []
-for freq in list_freq:
-    micron = wave_to_mu / freq
-    list_micron.append(micron)
 
 # The error message that prints at the bottom will likely change soon.
 # I need to follow the above TO-DO and check if the frequencies have associated resolutions.
 list_del_lambda = []
-for micron in list_micron:
+for micron in get_wavelength(list_freq):
     R = get_R(micron, res_range)
     if R is not None:
-        del_lambda = wave_to_mu * (R / micron)
+        del_lambda = 10000 * (R / micron)
         list_del_lambda.append(del_lambda)
     else:
         print(
